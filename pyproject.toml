@@ -1,39 +1,73 @@
+[project]
+name = "pdm-scriptcomplete"
+description = "A PDM plugin that enables tab completion for pdm scripts"
+authors = [{ "name" = "Anton Bauer", "email" = "" }]
+dependencies = ["pdm>=2.5"]
+requires-python = ">=3.9"
+readme = "README.md"
+license = {text = "MIT"}
+keywords = ["pdm", "pdm-scriptcomplete"]
+dynamic = ["version"]
+
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
-[project]
-name = "pdm-plugin"
-description = "A PDM plugin project"
-authors = []
-dependencies = []
-requires-python = ">=3.8"
-readme = "README.md"
-license = {text = "MIT"}
-keywords = ["pdm", "pdm-plugin"]
-dynamic = ["version"]
-
 classifiers = [
+    "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
 ]
 
-[project.entry-points."pdm"]
-pdm_plugin = "pdm_plugin:plugin"
+[project.entry-points.pdm]
+scriptcomplete = "pdm_scriptcomplete:plugin"
 
 [tool.pdm]
 plugins = [
-    "-e file:///${PROJECT_ROOT}/#egg=pdm_plugin",
+    "-e file:///${PROJECT_ROOT}/#egg=pdm_scriptcomplete",
 ]
+
+[tool.pdm.build]
+package-dir = "src"
 
 [tool.pdm.version]
 source = "scm"
 
 [tool.pdm.scripts]
 test = "pytest tests"
+black = "black ."
+ruff = "ruff check ."
+lint = {composite = ["black", "ruff"]}
 
 [tool.pdm.dev-dependencies]
 dev = [
     "pytest>=7",
-    "pdm[pytest]>=2.5"
+    "pdm[pytest]>=2.5",
+    "black>=20.0",
+    "ruff>=0.0.275",
 ]
+
+[tool.black]
+line-length = 80
+target-version = ["py39"]
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff]
+line-length = 80
+select = [
+  "B",   # flake8-bugbear
+  "C4",  # flake8-comprehensions
+  "E",   # pycodestyle
+  "F",   # pyflakes
+  "PGH", # pygrep-hooks
+  "RUF", # ruff
+  "W",   # pycodestyle
+  "YTT", # flake8-2020
+]
+extend-ignore = ["B018", "B019"]
+src = ["src"]
+extend-exclude = ["tests/fixtures"]
+target-version = "py39"

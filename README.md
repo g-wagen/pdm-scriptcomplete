@@ -1,3 +1,3 @@
-# pdm-plugin
+# PDM Script Complete
 
-> A template for PDM plugin project
+This [PDM](https://github.com/pdm-project/pdm) enables tab completion for pdm scripts.
