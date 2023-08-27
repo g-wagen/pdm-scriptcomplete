@@ -7,7 +7,13 @@ requires-python = ">=3.9"
 readme = "README.md"
 license = {text = "MIT"}
 keywords = ["pdm", "pdm-scriptcomplete"]
-dynamic = ["version"]
+version = "0.0.2"
+
+[project.urls]
+Homepage = "https://pypi.org/project/pdm-scriptcomplete/"
+#Documentation = "https://readthedocs.org"
+Repository = "https://github.com/g-wagen/pdm-scriptcomplete.git"
+#Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
 
 [build-system]
 requires = ["pdm-backend"]
@@ -31,14 +37,13 @@ plugins = [
 [tool.pdm.build]
 package-dir = "src"
 
-[tool.pdm.version]
-source = "scm"
-
 [tool.pdm.scripts]
 test = "pytest tests"
 black = "black ."
 ruff = "ruff check ."
 lint = {composite = ["black", "ruff"]}
+pypi.cmd = "pdm publish"
+pypi.env_file = ".env"
 
 [tool.pdm.dev-dependencies]
 dev = [

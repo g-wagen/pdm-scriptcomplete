@@ -9,9 +9,7 @@ from pdm.project import Project
 
 class ScriptCompleteCommand(BaseCommand):
     """
-    pdm_scriptcomplete
-
-    Registers a new script command that lets users choose a pdm script using tab completion
+    Run a PDM script using tab completion
     """
 
     arguments = []
